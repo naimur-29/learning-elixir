@@ -2,34 +2,32 @@ defmodule Take2 do
   use Application
 
   def start(_type, _args) do
-    #CODE:
+    # CODE:
     Take2.main()
 
     Supervisor.start_link([], strategy: :one_for_one)
   end
 
   def main() do
-    correct = :rand.uniform(1001) - 1
+    num =
+      IO.gets("Enter numbers: ")
+      |> String.trim()
+      |> String.split(" ")
+      |> Enum.map(&String.to_integer/1)
 
-    guessing_game(correct)
+    IO.inspect(num)
+    print_numbers(num)
+    IO.inspect(sum_and_avg(num))
   end
 
-  def guessing_game(correct) do
-    guess = IO.gets("Guess a number between 0 and 1000: ") |> String.trim() |> String.to_integer()
+  def sum_and_avg(numbers) do
+    sum = Enum.sum(numbers)
+    average = sum / Enum.count(numbers)
 
-    if guess < correct do
-      IO.puts("#{guess} is smaller!")
-    end
-    if guess > correct do
-      IO.puts("#{guess} is greater!")
-    end
-    if guess === correct do
-      IO.puts("#{guess} is correct!\nYOU WIN!")
-    end
+    [sum, average]
+  end
 
-    #RECALL:
-    if guess !== correct do
-      guessing_game(correct)
-    end
+  def print_numbers(numbers) do
+    numbers |> Enum.join(", ") |> IO.puts()
   end
 end
