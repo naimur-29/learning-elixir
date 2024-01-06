@@ -1,0 +1,7 @@
+<h1>Todos Page</h1>
+
+<ul>
+  <%= for todo <- @todos do %>
+    <li><%= todo.note %> - <%= todo.status %></li>
+  <% end %>
+</ul>

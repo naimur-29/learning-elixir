@@ -9,15 +9,22 @@ defmodule Take2 do
   end
 
   def main() do
-    num =
-      IO.gets("Enter numbers: ")
-      |> String.trim()
-      |> String.split(" ")
-      |> Enum.map(&String.to_integer/1)
+    num1 = 1
+    num2 = 2
+    IO.puts "number1 = #{num1}, number2 = #{num2}"
 
-    IO.inspect(num)
-    print_numbers(num)
-    IO.inspect(sum_and_avg(num))
+    [num1, num2] = [num2, num1]
+    IO.puts "number1 = #{num1}, number2 = #{num2}"
+
+    IO.inspect self()
+  end
+
+  def loop(initiator, range, increment) do
+    IO.puts(initiator)
+
+    if initiator < range do
+      loop(initiator + increment, range, increment)
+    end
   end
 
   def sum_and_avg(numbers) do
